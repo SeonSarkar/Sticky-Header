@@ -19,6 +19,11 @@ public class MenuItem {
         this.isHeader = isHeader;
     }
 
+ /*   public MenuItem(String itemName, int type) {
+        this.itemName = itemName;
+        this.mType = type;
+    }*/
+
     public String getItemName() {
         return itemName;
     }

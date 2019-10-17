@@ -91,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
         listMenuItem.add(new MenuItem("Child4", MenuItem.CHILD_TYPE, false));
         listMenuItem.add(new MenuItem("Child4", MenuItem.CHILD_TYPE, false));
 
+
         mStickyAdapter = new StickyAdapter(listMenuItem);
         mBinding.rvSticky.setLayoutManager(new LinearLayoutManager(this));
         mBinding.rvSticky.setHasFixedSize(true);

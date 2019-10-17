@@ -1,7 +1,6 @@
 package com.example.sticky.itemdecoration;
 
 import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -76,10 +75,8 @@ public class ItemDecoration extends RecyclerView.ItemDecoration {
     }
 
     private void drawHeader(Canvas c, View header) {
-        Paint paint = new Paint();
         c.save();
         c.translate(0, 0);
-        c.drawRect(0, 0, 100, 150, paint); // working
         header.draw(c);
         c.restore();
     }
