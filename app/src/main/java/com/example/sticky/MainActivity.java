@@ -2,21 +2,15 @@ package com.example.sticky;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import com.example.sticky.databinding.ActivityMainBinding;
-import com.seon.hornet.adapters.adapter.StickyAdapter;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
     ActivityMainBinding mBinding;
-    StickyAdapter mStickyAdapter;
-
-    List<MenuItem> listMenuItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +19,8 @@ public class MainActivity extends AppCompatActivity {
 
         mBinding.btnSticky.setOnClickListener(v -> startActivity(new Intent(this, StickyListActivity.class)));
         mBinding.btnNormal.setOnClickListener(v -> startActivity(new Intent(this, RecyclerViewActivity.class)));
-        mBinding.btnExpandable.setOnClickListener(v -> startActivity(new Intent(this, ExpandableListActivity.class)));
-
+        //mBinding.btnExpandable.setOnClickListener(v -> startActivity(new Intent(this, ExpandableListActivity.class)));
+        mBinding.btnExpandable.setVisibility(View.GONE);
     }
 
 
