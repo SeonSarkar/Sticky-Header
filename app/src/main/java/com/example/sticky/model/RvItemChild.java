@@ -8,11 +8,21 @@ public class RvItemChild<C> extends RecyclerViewItem {
 
     private C child;
     private int headerPosition;
+    private int childPosition;
 
-    public RvItemChild(C child, int headerPosition) {
-        isHeader=false;
-        this.headerPosition=headerPosition;
-        this.child=child;
+    public RvItemChild(C child, int headerPosition, int childPosition) {
+        isHeader = false;
+        this.headerPosition = headerPosition;
+        this.childPosition = childPosition;
+        this.child = child;
+    }
+
+    public int getChildPosition() {
+        return childPosition;
+    }
+
+    public void setChildPosition(int childPosition) {
+        this.childPosition = childPosition;
     }
 
     public int getHeaderPosition() {

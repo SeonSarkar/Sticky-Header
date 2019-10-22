@@ -27,20 +27,22 @@ public class StickyAdapter<H, C, VBH extends ViewDataBinding, VBC extends ViewDa
     private List processedListItems = new ArrayList();
     private int headerLayout;
     private int childLayout;
+    List<StickeyItem<H, C>> originalItems;
     private RecyclerCallBack<H, C, VBH, VBC> recyclerCallBack;
 
     public StickyAdapter(List<StickeyItem<H, C>> listMenuItems, @LayoutRes int headerLayout, @LayoutRes int childLayout, RecyclerCallBack<H, C, VBH, VBC> callbackInterface) {
         this.recyclerCallBack = callbackInterface;
         this.headerLayout = headerLayout;
         this.childLayout = childLayout;
-        processList(listMenuItems);
+        originalItems = listMenuItems;
+        processList();
     }
 
-    private void processList(List<StickeyItem<H, C>> listMenuItems) {
-        for (int k = 0; k < listMenuItems.size(); k++) {
-            processedListItems.add(new RvItemHeader<>(listMenuItems.get(k).getHeader()));
-            for (int i = 0; i < listMenuItems.get(k).getChildList().size(); i++) {
-                processedListItems.add(new RvItemChild<>(listMenuItems.get(k).getChildList().get(i), k));
+    private void processList() {
+        for (int k = 0; k < originalItems.size(); k++) {
+            processedListItems.add(new RvItemHeader<>(originalItems.get(k).getHeader(),k));
+            for (int i = 0; i < originalItems.get(k).getChildList().size(); i++) {
+                processedListItems.add(new RvItemChild<>(originalItems.get(k).getChildList().get(i), k, i));
             }
         }
     }
@@ -65,18 +67,22 @@ public class StickyAdapter<H, C, VBH extends ViewDataBinding, VBC extends ViewDa
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
         if (processedListItems.get(position) instanceof RvItemHeader) {
-            H header = (H) processedListItems.get(position);
+            RvItemHeader rvItemHeader = (RvItemHeader) (processedListItems.get(position));
+            H header = originalItems.get(rvItemHeader.getHeaderPosition()).getHeader();
             recyclerCallBack.bindHeader(((ViewHolderHeader) holder).headerBinding, header);
         }
         if (processedListItems.get(position) instanceof RvItemChild) {
-            C child = (C) processedListItems.get(position);
+            RvItemChild rvItemChild= (RvItemChild) (processedListItems.get(position));
+            C child = originalItems.get(rvItemChild.getHeaderPosition()).getChildList().get(rvItemChild.getChildPosition());
             recyclerCallBack.bindChild(((ViewHolderChild) holder).headerBinding, child);
         }
     }
 
     @Override
-    public void bindHeaderData(View header, int headerPosition) {
-        recyclerCallBack.bindHeader((VBH) DataBindingUtil.bind(header), (H) processedListItems.get(headerPosition));
+    public void bindHeaderData(View headerView, int headerPosition) {
+        RvItemHeader rvItemHeader = (RvItemHeader) (processedListItems.get(headerPosition));
+        H header = originalItems.get(rvItemHeader.getHeaderPosition()).getHeader();
+        recyclerCallBack.bindHeader((VBH) DataBindingUtil.bind(headerView), header);
     }
 
     @Override

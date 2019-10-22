@@ -7,10 +7,20 @@ package com.example.sticky.model;
 public class RvItemHeader<H> extends RecyclerViewItem {
 
     private H header;
+    private int headerPosition;
 
-    public RvItemHeader(H header) {
+    public RvItemHeader(H header, int headerPosition) {
         isHeader = true;
+        this.headerPosition = headerPosition;
         this.header=header;
+    }
+
+    public int getHeaderPosition() {
+        return headerPosition;
+    }
+
+    public void setHeaderPosition(int headerPosition) {
+        this.headerPosition = headerPosition;
     }
 
     public H getHeader() {
