@@ -1,4 +1,4 @@
-package com.seon.hornet.stickyheader.model;
+package com.example.sticky;
 
 /**
  * Created by suman.ghimire.

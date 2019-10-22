@@ -1,4 +1,4 @@
-package com.seon.hornet.stickyheader.itemdecoration;
+package com.seon.hornet.adapters.itemdecoration;
 
 import android.graphics.Canvas;
 import android.view.LayoutInflater;
@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.seon.hornet.stickyheader.callback.StickyHeaderCallBack;
+import com.seon.hornet.adapters.callback.StickyHeaderCallBack;
 
 /**
  * Created by suman.ghimire.

@@ -1,10 +1,10 @@
-package com.seon.hornet.stickyheader.model;
+package com.seon.hornet.adapters.model;
 
 /**
  * Created by Kiran Gyawali on 10/22/2019.
  */
 
-public class RvItemChild<C> extends RecyclerViewItem {
+public class RvItemChild<C> extends StickyRvItem {
 
     private C child;
     private int headerPosition;

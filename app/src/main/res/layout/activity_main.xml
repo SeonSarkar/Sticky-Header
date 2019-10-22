@@ -3,13 +3,28 @@
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:gravity="center"
+        android:padding="16dp"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvSticky"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+     <androidx.appcompat.widget.AppCompatButton
+         android:id="@+id/btnSticky"
+         android:text="Sticky Recycler View"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+         android:id="@+id/btnExpandable"
+         android:text="Expandable Recycler View"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+         android:id="@+id/btnNormal"
+         android:text="Generic Recycler View"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"/>
 
     </LinearLayout>
 

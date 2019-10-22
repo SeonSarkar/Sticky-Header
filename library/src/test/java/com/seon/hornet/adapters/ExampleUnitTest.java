@@ -1,4 +1,4 @@
-package com.seon.hornet.stickyheader;
+package com.seon.hornet.adapters;
 
 import org.junit.Test;
 

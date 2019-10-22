@@ -1,4 +1,4 @@
-package com.seon.hornet.stickyheader.adapter;
+package com.seon.hornet.adapters.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,11 +11,11 @@ import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.seon.hornet.stickyheader.callback.RecyclerCallBack;
-import com.seon.hornet.stickyheader.callback.StickyHeaderCallBack;
-import com.seon.hornet.stickyheader.model.RvItemChild;
-import com.seon.hornet.stickyheader.model.RvItemHeader;
-import com.seon.hornet.stickyheader.model.StickeyItem;
+import com.seon.hornet.adapters.callback.StickyRecyclerCallBack;
+import com.seon.hornet.adapters.callback.StickyHeaderCallBack;
+import com.seon.hornet.adapters.model.RvItemChild;
+import com.seon.hornet.adapters.model.RvItemHeader;
+import com.seon.hornet.adapters.model.StickyItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,10 +30,10 @@ public class StickyAdapter<H, C, VBH extends ViewDataBinding, VBC extends ViewDa
     private List processedListItems = new ArrayList();
     private int headerLayout;
     private int childLayout;
-    private List<StickeyItem<H, C>> originalItems;
-    private RecyclerCallBack<H, C, VBH, VBC> recyclerCallBack;
+    private List<StickyItem<H, C>> originalItems;
+    private StickyRecyclerCallBack<H, C, VBH, VBC> recyclerCallBack;
 
-    public StickyAdapter(List<StickeyItem<H, C>> listMenuItems, @LayoutRes int headerLayout, @LayoutRes int childLayout, RecyclerCallBack<H, C, VBH, VBC> callbackInterface) {
+    public StickyAdapter(List<StickyItem<H, C>> listMenuItems, @LayoutRes int headerLayout, @LayoutRes int childLayout, StickyRecyclerCallBack<H, C, VBH, VBC> callbackInterface) {
         this.recyclerCallBack = callbackInterface;
         this.headerLayout = headerLayout;
         this.childLayout = childLayout;

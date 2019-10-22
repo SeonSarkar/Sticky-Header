@@ -1,4 +1,4 @@
-package com.seon.hornet.stickyheader.callback;
+package com.seon.hornet.adapters.callback;
 
 import androidx.databinding.ViewDataBinding;
 
@@ -6,7 +6,7 @@ import androidx.databinding.ViewDataBinding;
  * Created by Kiran Gyawali on 10/22/2019.
  */
 
-public interface RecyclerCallBack<H, C, VBH extends ViewDataBinding,VBC extends ViewDataBinding> {
+public interface StickyRecyclerCallBack<H, C, VBH extends ViewDataBinding,VBC extends ViewDataBinding> {
 
     void bindHeader(VBH header, H item);
 

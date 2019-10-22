@@ -1,4 +1,4 @@
-package com.seon.hornet.stickyheader.model;
+package com.seon.hornet.adapters.model;
 
 import java.util.List;
 
@@ -6,15 +6,15 @@ import java.util.List;
  * Created by Kiran Gyawali on 10/22/2019.
  */
 
-public class StickeyItem<H,C> {
+public class StickyItem<H,C> {
 
     private List<C> childList;
     private H header;
 
-    public StickeyItem() {
+    public StickyItem() {
     }
 
-    public StickeyItem(List<C> childList, H header) {
+    public StickyItem(List<C> childList, H header) {
         this.childList = childList;
         this.header = header;
     }

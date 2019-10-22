@@ -1,4 +1,4 @@
-package com.seon.hornet.stickyheader.callback;
+package com.seon.hornet.adapters.callback;
 
 import android.view.View;
 
