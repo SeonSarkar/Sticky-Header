@@ -40,7 +40,7 @@ public class GenericAdapter<T, VM extends ViewDataBinding> extends RecyclerView.
     @Override
     public void onBindViewHolder(@NonNull GenericAdapter.BindingHolder holder, int position) {
         T item = listItems.get(holder.getAdapterPosition());
-        bindingInterface.bindData((VM) holder.binding, item, listItems, position);
+        bindingInterface.bindData((VM) holder.binding, item, listItems, holder.getAdapterPosition());
     }
 
     @Override
@@ -55,6 +55,15 @@ public class GenericAdapter<T, VM extends ViewDataBinding> extends RecyclerView.
     public void refreshData(List<T> refreshedListItems) {
         this.listItems = refreshedListItems;
         notifyDataSetChanged();
+    }
+
+    public void appendData(List<T> listItems) {
+        this.listItems.addAll(listItems);
+        notifyDataSetChanged();
+    }
+
+    public T getItem(int position) {
+        return listItems.get(position);
     }
 
     @Override
