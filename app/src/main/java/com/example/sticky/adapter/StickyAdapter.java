@@ -1,46 +1,61 @@
 package com.example.sticky.adapter;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
+import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.example.sticky.R;
-import com.example.sticky.databinding.RowListChildItemBinding;
-import com.example.sticky.databinding.RowListHeaderItemBinding;
 import com.example.sticky.itemdecoration.ItemDecoration;
-import com.example.sticky.model.MenuItem;
+import com.example.sticky.model.RvItemChild;
+import com.example.sticky.model.RvItemHeader;
+import com.example.sticky.model.StickeyItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by suman.ghimire.
  */
-public class StickyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements ItemDecoration.StickyHeaderInterface {
+public class StickyAdapter<H, C, VBH extends ViewDataBinding, VBC extends ViewDataBinding> extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements ItemDecoration.StickyHeaderInterface {
 
-    private List<MenuItem> listMenuItems;
+    private static final int HEADER_TYPE = 0;
+    private static final int CHILD_TYPE = 1;
+    private List processedListItems = new ArrayList();
+    private int headerLayout;
+    private int childLayout;
+    private RecyclerCallBack<H, C, VBH, VBC> recyclerCallBack;
 
-    public StickyAdapter(List<MenuItem> listMenuItems) {
-        this.listMenuItems = listMenuItems;
+    public StickyAdapter(List<StickeyItem<H, C>> listMenuItems, @LayoutRes int headerLayout, @LayoutRes int childLayout, RecyclerCallBack<H, C, VBH, VBC> callbackInterface) {
+        this.recyclerCallBack = callbackInterface;
+        this.headerLayout = headerLayout;
+        this.childLayout = childLayout;
+        processList(listMenuItems);
+    }
+
+    private void processList(List<StickeyItem<H, C>> listMenuItems) {
+        for (int k = 0; k < listMenuItems.size(); k++) {
+            processedListItems.add(new RvItemHeader<>(listMenuItems.get(k).getHeader()));
+            for (int i = 0; i < listMenuItems.get(k).getChildList().size(); i++) {
+                processedListItems.add(new RvItemChild<>(listMenuItems.get(k).getChildList().get(i), k));
+            }
+        }
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         Context mContext = parent.getContext();
-
         switch (viewType) {
-            case MenuItem.HEADER_TYPE:
-                RowListHeaderItemBinding rowListHeaderItemBinding = RowListHeaderItemBinding.
-                        bind(LayoutInflater.from(mContext).inflate(R.layout.row_list_header_item, parent, false));
-                return new ViewHolderHeader(rowListHeaderItemBinding);
+            case HEADER_TYPE:
+                View headerView = (LayoutInflater.from(mContext).inflate(headerLayout, parent, false));
+                return new ViewHolderHeader(headerView);
 
-            case MenuItem.CHILD_TYPE:
-                RowListChildItemBinding rowListChildItemBinding = RowListChildItemBinding
-                        .bind(LayoutInflater.from(mContext).inflate(R.layout.row_list_child_item, parent, false));
-                return new ViewHolderChild(rowListChildItemBinding);
+            case CHILD_TYPE:
+                View childView = (LayoutInflater.from(mContext).inflate(childLayout, parent, false));
+                return new ViewHolderChild(childView);
         }
         return null;
     }
@@ -49,58 +64,42 @@ public class StickyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
-        MenuItem menuItem = listMenuItems.get(position);
-
-        switch (menuItem.getmType()) {
-            case MenuItem.HEADER_TYPE:
-                ((ViewHolderHeader) holder).rowListHeaderItemBinding.tvHeaderItem.setText(menuItem.getItemName());
-                break;
-
-            case MenuItem.CHILD_TYPE:
-                ((ViewHolderChild) holder).rowListChildItemBinding.tvChildItem.setText(menuItem.getItemName());
-                break;
-
-            default:
-                break;
+        if (processedListItems.get(position) instanceof RvItemHeader) {
+            H header = (H) processedListItems.get(position);
+            recyclerCallBack.bindHeader(((ViewHolderHeader) holder).headerBinding, header);
+        }
+        if (processedListItems.get(position) instanceof RvItemChild) {
+            C child = (C) processedListItems.get(position);
+            recyclerCallBack.bindChild(((ViewHolderChild) holder).headerBinding, child);
         }
     }
-
-    public static class ViewHolderHeader extends RecyclerView.ViewHolder {
-
-        private RowListHeaderItemBinding rowListHeaderItemBinding;
-
-        public ViewHolderHeader(RowListHeaderItemBinding rowListHeaderItemBinding) {
-            super(rowListHeaderItemBinding.getRoot());
-            this.rowListHeaderItemBinding = rowListHeaderItemBinding;
-        }
-    }
-
-
-    public static class ViewHolderChild extends RecyclerView.ViewHolder {
-
-        private RowListChildItemBinding rowListChildItemBinding;
-
-        public ViewHolderChild(RowListChildItemBinding rowListChildItemBinding) {
-            super(rowListChildItemBinding.getRoot());
-            this.rowListChildItemBinding = rowListChildItemBinding;
-        }
-    }
-
 
     @Override
-    public int getItemCount() {
-        return listMenuItems.size();
+    public void bindHeaderData(View header, int headerPosition) {
+        recyclerCallBack.bindHeader((VBH) DataBindingUtil.bind(header), (H) processedListItems.get(headerPosition));
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (listMenuItems != null) {
-            MenuItem menuItem = listMenuItems.get(position);
-            if (menuItem != null) {
-                return menuItem.getmType();
+        if (processedListItems != null) {
+            if (processedListItems.get(position) instanceof RvItemHeader) {
+                return HEADER_TYPE;
+            }
+            if (processedListItems.get(position) instanceof RvItemChild) {
+                return CHILD_TYPE;
             }
         }
-        return 0;
+        return -1;
+    }
+
+    @Override
+    public int getItemCount() {
+        return processedListItems.size();
+    }
+
+    @Override
+    public int getHeaderLayout(int headerPosition) {
+        return headerLayout;
     }
 
 
@@ -118,21 +117,26 @@ public class StickyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     @Override
-    public int getHeaderLayout(int headerPosition) {
-        return R.layout.row_list_header_item;
-    }
-
-    @Override
-    public void bindHeaderData(View header, int headerPosition) {
-        MenuItem menuItem = listMenuItems.get(headerPosition);
-
-        TextView tvName = header.findViewById(R.id.tvHeaderItem);
-        tvName.setText(menuItem.getItemName());
-    }
-
-    @Override
     public boolean isHeader(int itemPosition) {
-        return listMenuItems.get(itemPosition).isHeader();
+        return getItemViewType(itemPosition) == HEADER_TYPE;
+    }
+
+    class ViewHolderHeader extends RecyclerView.ViewHolder {
+        VBH headerBinding;
+
+        ViewHolderHeader(View view) {
+            super(view);
+            headerBinding = DataBindingUtil.bind(view);
+        }
+    }
+
+    class ViewHolderChild extends RecyclerView.ViewHolder {
+        VBC headerBinding;
+
+        ViewHolderChild(View view) {
+            super(view);
+            headerBinding = DataBindingUtil.bind(view);
+        }
     }
 
 }
