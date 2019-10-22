@@ -31,8 +31,6 @@ public class MainActivity extends AppCompatActivity {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         listMenuItem = new ArrayList<>();
-        listMenuItem.add(new MenuItem("Header", MenuItem.HEADER_TYPE, true));
-
         listMenuItem.add(new MenuItem("Child", MenuItem.CHILD_TYPE, false));
         listMenuItem.add(new MenuItem("Child", MenuItem.CHILD_TYPE, false));
         listMenuItem.add(new MenuItem("Child", MenuItem.CHILD_TYPE, false));
@@ -43,66 +41,17 @@ public class MainActivity extends AppCompatActivity {
         listMenuItem.add(new MenuItem("Child", MenuItem.CHILD_TYPE, false));
         listMenuItem.add(new MenuItem("Child", MenuItem.CHILD_TYPE, false));
 
-        listMenuItem.add(new MenuItem("Header1", MenuItem.HEADER_TYPE, true));
 
-        listMenuItem.add(new MenuItem("Child1", MenuItem.CHILD_TYPE, false));
-        listMenuItem.add(new MenuItem("Child1", MenuItem.CHILD_TYPE, false));
-        listMenuItem.add(new MenuItem("Child1", MenuItem.CHILD_TYPE, false));
-        listMenuItem.add(new MenuItem("Child1", MenuItem.CHILD_TYPE, false));
-        listMenuItem.add(new MenuItem("Child1", MenuItem.CHILD_TYPE, false));
-        listMenuItem.add(new MenuItem("Child1", MenuItem.CHILD_TYPE, false));
-        listMenuItem.add(new MenuItem("Child1", MenuItem.CHILD_TYPE, false));
-        listMenuItem.add(new MenuItem("Child1", MenuItem.CHILD_TYPE, false));
-        listMenuItem.add(new MenuItem("Child1", MenuItem.CHILD_TYPE, false));
-        listMenuItem.add(new MenuItem("Child1", MenuItem.CHILD_TYPE, false));
-
-
-        listMenuItem.add(new MenuItem("Header2", MenuItem.HEADER_TYPE, true));
-
-        listMenuItem.add(new MenuItem("Child2", MenuItem.CHILD_TYPE, false));
-        listMenuItem.add(new MenuItem("Child2", MenuItem.CHILD_TYPE, false));
-        listMenuItem.add(new MenuItem("Child2", MenuItem.CHILD_TYPE, false));
-        listMenuItem.add(new MenuItem("Child2", MenuItem.CHILD_TYPE, false));
-        listMenuItem.add(new MenuItem("Child2", MenuItem.CHILD_TYPE, false));
-        listMenuItem.add(new MenuItem("Child2", MenuItem.CHILD_TYPE, false));
-        listMenuItem.add(new MenuItem("Child2", MenuItem.CHILD_TYPE, false));
-        listMenuItem.add(new MenuItem("Child2", MenuItem.CHILD_TYPE, false));
-        listMenuItem.add(new MenuItem("Child2", MenuItem.CHILD_TYPE, false));
-
-
-        listMenuItem.add(new MenuItem("Header3", MenuItem.HEADER_TYPE, true));
-
-        listMenuItem.add(new MenuItem("Child3", MenuItem.CHILD_TYPE, false));
-        listMenuItem.add(new MenuItem("Child3", MenuItem.CHILD_TYPE, false));
-        listMenuItem.add(new MenuItem("Child3", MenuItem.CHILD_TYPE, false));
-        listMenuItem.add(new MenuItem("Child3", MenuItem.CHILD_TYPE, false));
-        listMenuItem.add(new MenuItem("Child3", MenuItem.CHILD_TYPE, false));
-        listMenuItem.add(new MenuItem("Child3", MenuItem.CHILD_TYPE, false));
-        listMenuItem.add(new MenuItem("Child3", MenuItem.CHILD_TYPE, false));
-        listMenuItem.add(new MenuItem("Child3", MenuItem.CHILD_TYPE, false));
-        listMenuItem.add(new MenuItem("Child3", MenuItem.CHILD_TYPE, false));
-
-
-        listMenuItem.add(new MenuItem("Header4", MenuItem.HEADER_TYPE, true));
-
-        listMenuItem.add(new MenuItem("Child4", MenuItem.CHILD_TYPE, false));
-        listMenuItem.add(new MenuItem("Child4", MenuItem.CHILD_TYPE, false));
-        listMenuItem.add(new MenuItem("Child4", MenuItem.CHILD_TYPE, false));
-        listMenuItem.add(new MenuItem("Child4", MenuItem.CHILD_TYPE, false));
-        listMenuItem.add(new MenuItem("Child4", MenuItem.CHILD_TYPE, false));
-        listMenuItem.add(new MenuItem("Child4", MenuItem.CHILD_TYPE, false));
-        listMenuItem.add(new MenuItem("Child4", MenuItem.CHILD_TYPE, false));
-        listMenuItem.add(new MenuItem("Child4", MenuItem.CHILD_TYPE, false));
-        listMenuItem.add(new MenuItem("Child4", MenuItem.CHILD_TYPE, false));
-
-        List<StickeyItem<MenuItem, MenuItem>> items = new ArrayList<>();
-        items.add(new StickeyItem<>(listMenuItem, new MenuItem("Child4", MenuItem.CHILD_TYPE, false)));
+        List<StickeyItem<String, MenuItem>> items = new ArrayList<>();
+        items.add(new StickeyItem<>(listMenuItem, "header 1"));
+        items.add(new StickeyItem<>(listMenuItem, "header 2"));
+        items.add(new StickeyItem<>(listMenuItem, "header 3"));
 
         mStickyAdapter = new StickyAdapter<>(items, R.layout.row_list_header_item, R.layout.row_list_child_item,
-                new RecyclerCallBack<MenuItem, MenuItem, RowListHeaderItemBinding, RowListChildItemBinding>() {
+                new RecyclerCallBack<String, MenuItem, RowListHeaderItemBinding, RowListChildItemBinding>() {
                     @Override
-                    public void bindHeader(RowListHeaderItemBinding header, MenuItem item) {
-                        header.tvHeaderItem.setText(item.getItemName());
+                    public void bindHeader(RowListHeaderItemBinding header, String item) {
+                        header.tvHeaderItem.setText(item);
                     }
 
                     @Override
