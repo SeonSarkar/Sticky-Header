@@ -102,12 +102,12 @@ public class MainActivity extends AppCompatActivity {
                 new RecyclerCallBack<MenuItem, MenuItem, RowListHeaderItemBinding, RowListChildItemBinding>() {
                     @Override
                     public void bindHeader(RowListHeaderItemBinding header, MenuItem item) {
-
+                        header.tvHeaderItem.setText(item.getItemName());
                     }
 
                     @Override
                     public void bindChild(RowListChildItemBinding child, MenuItem item) {
-
+                        child.tvChildItem.setText(item.getItemName());
                     }
                 });
         mBinding.rvSticky.setLayoutManager(new LinearLayoutManager(this));
