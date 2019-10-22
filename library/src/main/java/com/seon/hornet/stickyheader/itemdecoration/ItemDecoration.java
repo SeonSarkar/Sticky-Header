@@ -1,22 +1,25 @@
-package com.example.sticky.itemdecoration;
+package com.seon.hornet.stickyheader.itemdecoration;
 
 import android.graphics.Canvas;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.seon.hornet.stickyheader.callback.StickyHeaderCallBack;
 
 /**
  * Created by suman.ghimire.
  */
 public class ItemDecoration extends RecyclerView.ItemDecoration {
 
-    private StickyHeaderInterface mListener;
+    private StickyHeaderCallBack mListener;
     private int mStickyHeaderHeight;
 
-    public ItemDecoration(RecyclerView recyclerView, @NonNull StickyHeaderInterface listener) {
+    public ItemDecoration(RecyclerView recyclerView, @NonNull StickyHeaderCallBack listener) {
         mListener = listener;
 
         recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
@@ -119,14 +122,5 @@ public class ItemDecoration extends RecyclerView.ItemDecoration {
         return (view == null);
     }
 
-    public interface StickyHeaderInterface {
-        int getHeaderPositionForItem(int itemPosition);
-
-        int getHeaderLayout(int headerPosition);
-
-        void bindHeaderData(View header, int headerPosition);
-
-        boolean isHeader(int itemPosition);
-    }
 }
 

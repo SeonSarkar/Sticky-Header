@@ -1,4 +1,4 @@
-package com.example.sticky.model;
+package com.seon.hornet.stickyheader.model;
 
 import java.util.List;
 

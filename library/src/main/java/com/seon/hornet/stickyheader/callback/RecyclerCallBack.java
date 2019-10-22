@@ -1,6 +1,6 @@
-package com.example.sticky.adapter;
+package com.seon.hornet.stickyheader.callback;
 
-import android.databinding.ViewDataBinding;
+import androidx.databinding.ViewDataBinding;
 
 /**
  * Created by Kiran Gyawali on 10/22/2019.

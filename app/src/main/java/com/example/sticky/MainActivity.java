@@ -1,18 +1,19 @@
 package com.example.sticky;
 
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 
-import com.example.sticky.adapter.RecyclerCallBack;
-import com.example.sticky.adapter.StickyAdapter;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.example.sticky.databinding.ActivityMainBinding;
 import com.example.sticky.databinding.RowListChildItemBinding;
 import com.example.sticky.databinding.RowListHeaderItemBinding;
-import com.example.sticky.itemdecoration.ItemDecoration;
-import com.example.sticky.model.MenuItem;
-import com.example.sticky.model.StickeyItem;
+import com.seon.hornet.stickyheader.adapter.StickyAdapter;
+import com.seon.hornet.stickyheader.callback.RecyclerCallBack;
+import com.seon.hornet.stickyheader.itemdecoration.ItemDecoration;
+import com.seon.hornet.stickyheader.model.MenuItem;
+import com.seon.hornet.stickyheader.model.StickeyItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         items.add(new StickeyItem<>(listMenuItem, "header 2"));
         items.add(new StickeyItem<>(listMenuItem, "header 3"));
 
-        mStickyAdapter = new StickyAdapter<>(items, R.layout.row_list_header_item, R.layout.row_list_child_item,
+        mStickyAdapter = new StickyAdapter<String, MenuItem, RowListHeaderItemBinding, RowListChildItemBinding>(items, R.layout.row_list_header_item, R.layout.row_list_child_item,
                 new RecyclerCallBack<String, MenuItem, RowListHeaderItemBinding, RowListChildItemBinding>() {
                     @Override
                     public void bindHeader(RowListHeaderItemBinding header, String item) {

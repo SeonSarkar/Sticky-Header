@@ -1,18 +1,21 @@
-package com.example.sticky.adapter;
+package com.seon.hornet.stickyheader.adapter;
 
 import android.content.Context;
-import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
-import android.support.annotation.LayoutRes;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.sticky.itemdecoration.ItemDecoration;
-import com.example.sticky.model.RvItemChild;
-import com.example.sticky.model.RvItemHeader;
-import com.example.sticky.model.StickeyItem;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.seon.hornet.stickyheader.callback.RecyclerCallBack;
+import com.seon.hornet.stickyheader.callback.StickyHeaderCallBack;
+import com.seon.hornet.stickyheader.model.RvItemChild;
+import com.seon.hornet.stickyheader.model.RvItemHeader;
+import com.seon.hornet.stickyheader.model.StickeyItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,14 +23,14 @@ import java.util.List;
 /**
  * Created by suman.ghimire.
  */
-public class StickyAdapter<H, C, VBH extends ViewDataBinding, VBC extends ViewDataBinding> extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements ItemDecoration.StickyHeaderInterface {
+public class StickyAdapter<H, C, VBH extends ViewDataBinding, VBC extends ViewDataBinding> extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements StickyHeaderCallBack {
 
     private static final int HEADER_TYPE = 0;
     private static final int CHILD_TYPE = 1;
     private List processedListItems = new ArrayList();
     private int headerLayout;
     private int childLayout;
-    List<StickeyItem<H, C>> originalItems;
+    private List<StickeyItem<H, C>> originalItems;
     private RecyclerCallBack<H, C, VBH, VBC> recyclerCallBack;
 
     public StickyAdapter(List<StickeyItem<H, C>> listMenuItems, @LayoutRes int headerLayout, @LayoutRes int childLayout, RecyclerCallBack<H, C, VBH, VBC> callbackInterface) {
@@ -47,24 +50,22 @@ public class StickyAdapter<H, C, VBH extends ViewDataBinding, VBC extends ViewDa
         }
     }
 
+    @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context mContext = parent.getContext();
         switch (viewType) {
             case HEADER_TYPE:
-                View headerView = (LayoutInflater.from(mContext).inflate(headerLayout, parent, false));
-                return new ViewHolderHeader(headerView);
-
+                return new ViewHolderHeader((LayoutInflater.from(mContext).inflate(headerLayout, parent, false)));
             case CHILD_TYPE:
-                View childView = (LayoutInflater.from(mContext).inflate(childLayout, parent, false));
-                return new ViewHolderChild(childView);
+               return new ViewHolderChild((LayoutInflater.from(mContext).inflate(childLayout, parent, false)));
         }
-        return null;
+        return new ViewHolderChild((LayoutInflater.from(mContext).inflate(childLayout, parent, false)));
     }
 
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
         if (processedListItems.get(position) instanceof RvItemHeader) {
             RvItemHeader rvItemHeader = (RvItemHeader) (processedListItems.get(position));
@@ -74,7 +75,7 @@ public class StickyAdapter<H, C, VBH extends ViewDataBinding, VBC extends ViewDa
         if (processedListItems.get(position) instanceof RvItemChild) {
             RvItemChild rvItemChild= (RvItemChild) (processedListItems.get(position));
             C child = originalItems.get(rvItemChild.getHeaderPosition()).getChildList().get(rvItemChild.getChildPosition());
-            recyclerCallBack.bindChild(((ViewHolderChild) holder).headerBinding, child);
+            recyclerCallBack.bindChild(((ViewHolderChild) holder).childBinding, child);
         }
     }
 
@@ -137,11 +138,11 @@ public class StickyAdapter<H, C, VBH extends ViewDataBinding, VBC extends ViewDa
     }
 
     class ViewHolderChild extends RecyclerView.ViewHolder {
-        VBC headerBinding;
+        VBC childBinding;
 
         ViewHolderChild(View view) {
             super(view);
-            headerBinding = DataBindingUtil.bind(view);
+            childBinding = DataBindingUtil.bind(view);
         }
     }
 
