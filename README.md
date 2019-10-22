@@ -4,8 +4,8 @@
 
 Sticky Header Recycler View is created mostly to provide the simplest implementation of Adapters . 
 
-# Contributor
- [Kiran Gyawali](www.kirangyawali.com.np)
+### Contributor
+ [Kiran Gyawali](https://www.kirangyawali.com.np)
 
 ## Setup
 
