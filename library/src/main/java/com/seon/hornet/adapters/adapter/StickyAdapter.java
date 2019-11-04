@@ -83,7 +83,7 @@ public class StickyAdapter<H, C, VBH extends ViewDataBinding, VBC extends ViewDa
     public void bindHeaderData(View headerView, int headerPosition) {
         RvItemHeader rvItemHeader = (RvItemHeader) (processedListItems.get(headerPosition));
         H header = originalItems.get(rvItemHeader.getHeaderPosition()).getHeader();
-        recyclerCallBack.bindHeader((VBH) DataBindingUtil.bind(headerView), header);
+        recyclerCallBack.bindHeader(DataBindingUtil.bind(headerView), header);
     }
 
     @Override
