@@ -32,10 +32,24 @@ public class ExpandableListActivity extends AppCompatActivity {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_expandable_list);
 
 
+        listMenuItem = new ArrayList<>();
+        listMenuItem.add(new MenuItem("Child", MenuItem.CHILD_TYPE, false));
+        listMenuItem.add(new MenuItem("Child", MenuItem.CHILD_TYPE, false));
+        listMenuItem.add(new MenuItem("Child", MenuItem.CHILD_TYPE, false));
+        listMenuItem.add(new MenuItem("Child", MenuItem.CHILD_TYPE, false));
+        listMenuItem.add(new MenuItem("Child", MenuItem.CHILD_TYPE, false));
+        listMenuItem.add(new MenuItem("Child", MenuItem.CHILD_TYPE, false));
+        listMenuItem.add(new MenuItem("Child", MenuItem.CHILD_TYPE, false));
+        listMenuItem.add(new MenuItem("Child", MenuItem.CHILD_TYPE, false));
+        listMenuItem.add(new MenuItem("Child", MenuItem.CHILD_TYPE, false));
+
+
+
+
         List<StickyItem<String, MenuItem>> items = new ArrayList<>();
-        items.add(new StickyItem<>(listMenuItem, "header 1"));
-        items.add(new StickyItem<>(listMenuItem, "header 2"));
-        items.add(new StickyItem<>(listMenuItem, "header 3"));
+        items.add(new StickyItem<>(listMenuItem, "Expandable Header 1"));
+        items.add(new StickyItem<>(listMenuItem, "Expandable Header 2"));
+        items.add(new StickyItem<>(listMenuItem, "Expandable Header 3"));
 
         mExpandableRecyclerAdapter = new ExpandableRecyclerAdapter(items, R.layout.row_list_header_item, R.layout.row_list_child_item,
                 new StickyRecyclerCallBack<String, MenuItem, RowListHeaderItemBinding, RowListChildItemBinding>() {
@@ -52,7 +66,6 @@ public class ExpandableListActivity extends AppCompatActivity {
 
         mBinding.rvExpandable.setLayoutManager(new LinearLayoutManager(this));
         mBinding.rvExpandable.setHasFixedSize(true);
-        mBinding.rvExpandable.addItemDecoration(new ItemDecoration(mBinding.rvExpandable, mExpandableRecyclerAdapter));
         mBinding.rvExpandable.setAdapter(mExpandableRecyclerAdapter);
 
 

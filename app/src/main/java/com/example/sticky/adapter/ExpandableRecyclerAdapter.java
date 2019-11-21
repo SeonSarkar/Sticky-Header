@@ -10,7 +10,6 @@ import java.util.List;
  */
 public class ExpandableRecyclerAdapter extends StickyAdapter {
 
-    /* private List<StickyItem<H, C>> originalItems;*/
 
     public ExpandableRecyclerAdapter(List listMenuItems, int headerLayout, int childLayout, StickyRecyclerCallBack callbackInterface) {
         super(listMenuItems, headerLayout, childLayout, callbackInterface);
