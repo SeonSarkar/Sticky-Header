@@ -8,7 +8,7 @@ import java.util.List;
 
 public class StickyItem<H,C> {
 
-    private List<C> childList;
+    public List<C> childList;
     private H header;
 
     public StickyItem() {
