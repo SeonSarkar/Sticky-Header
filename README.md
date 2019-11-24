@@ -25,7 +25,7 @@ allprojects {
    }  
   ```   
  #### Step 2
-    Add the dependency  
+   Add the dependency
       
  ```java  
    dependencies {  
