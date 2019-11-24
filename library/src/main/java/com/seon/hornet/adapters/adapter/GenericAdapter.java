@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
@@ -23,7 +24,13 @@ public class GenericAdapter<T, VM extends ViewDataBinding> extends RecyclerView.
     private int layoutId;
     private GenericRecyclerCallBack<VM, T> bindingInterface;
 
-    public GenericAdapter(List<T> listItems, int layoutId, GenericRecyclerCallBack<VM, T> bindingInterface) {
+    /**
+     * @param listItems list of items to be displayed in a recycler view
+     * @param layoutId layout id of a list item view in a recycler view
+     * @param bindingInterface a callback for views in a recycler view
+     */
+
+    public GenericAdapter(List<T> listItems, @LayoutRes int layoutId, GenericRecyclerCallBack<VM, T> bindingInterface) {
         this.listItems = listItems;
         this.layoutId = layoutId;
         this.bindingInterface = bindingInterface;

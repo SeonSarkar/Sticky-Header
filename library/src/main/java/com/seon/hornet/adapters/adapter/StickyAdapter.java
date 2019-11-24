@@ -33,6 +33,12 @@ public class StickyAdapter<H, C, VBH extends ViewDataBinding, VBC extends ViewDa
     private List<StickyItem<H, C>> originalItems;
     private StickyRecyclerCallBack<H, C, VBH, VBC> recyclerCallBack;
 
+    /**
+     * @param listMenuItems
+     * @param headerLayout
+     * @param childLayout
+     * @param callbackInterface
+     */
     public StickyAdapter(List<StickyItem<H, C>> listMenuItems, @LayoutRes int headerLayout, @LayoutRes int childLayout, StickyRecyclerCallBack<H, C, VBH, VBC> callbackInterface) {
         this.recyclerCallBack = callbackInterface;
         this.headerLayout = headerLayout;
