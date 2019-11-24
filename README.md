@@ -108,7 +108,7 @@ StickyAdapter mStickyAdapter = new StickyAdapter<>(items, R.layout.row_list_head
 
  ```java
 
-mBinding.rvSticky.addItemDecoration(new com.seon.hornet.adapters.itemdecoration.ItemDecoration(mBinding.rvSticky, mStickyAdapter));
+myRecyclerView.addItemDecoration(new com.seon.hornet.adapters.itemdecoration.ItemDecoration(mBinding.rvSticky, mStickyAdapter));
 
 myRecyclerView.setAdapter(mStickyAdapter);
 ```
