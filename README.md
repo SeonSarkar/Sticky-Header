@@ -89,6 +89,7 @@ StickyAdapter mStickyAdapter = new StickyAdapter<>(items, R.layout.row_list_head
  */
   @Override
   public void bindHeader(RowListHeaderItemBinding header, String item) {
+                /*setup your views for header in sticky recycler view here*/
                 header.tvHeaderItem.setText(item);
             }
 
@@ -98,6 +99,7 @@ StickyAdapter mStickyAdapter = new StickyAdapter<>(items, R.layout.row_list_head
  */
   @Override
   public void bindChild(RowListChildItemBinding child, MenuItem item) {
+                /*setup your views for child in sticky recycler view here*/
                 child.tvChildItem.setText(item.getItemName());
                 }
         });
