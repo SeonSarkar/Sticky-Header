@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StickyListActivity extends AppCompatActivity {
-    StickyAdapter mStickyAdapter;
     ActivityStickyListBinding mBinding;
     List<MenuItem> listMenuItem;
 
@@ -44,13 +43,21 @@ public class StickyListActivity extends AppCompatActivity {
         items.add(new StickyItem<>(listMenuItem, "header 2"));
         items.add(new StickyItem<>(listMenuItem, "header 3"));
 
-        mStickyAdapter = new StickyAdapter<String, MenuItem, RowListHeaderItemBinding, RowListChildItemBinding>(items, R.layout.row_list_header_item, R.layout.row_list_child_item,
+        StickyAdapter mStickyAdapter = new StickyAdapter<>(items, R.layout.row_list_header_item, R.layout.row_list_child_item,
                 new StickyRecyclerCallBack<String, MenuItem, RowListHeaderItemBinding, RowListChildItemBinding>() {
+                    /**
+                     * @param header view binding of a header
+                     * @param item object in a header view
+                     */
                     @Override
                     public void bindHeader(RowListHeaderItemBinding header, String item) {
                         header.tvHeaderItem.setText(item);
                     }
 
+                    /**
+                     * @param child view binding of child item in a sticky recycler view
+                     * @param item object in a child view
+                     */
                     @Override
                     public void bindChild(RowListChildItemBinding child, MenuItem item) {
                         child.tvChildItem.setText(item.getItemName());
