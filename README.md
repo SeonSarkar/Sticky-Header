@@ -64,14 +64,17 @@ myRecyclerView.setAdapter(myAdapter);
 ```
 ## Sticky List RV Adapter Usages
 #### create a list of StickyItem
+
+`H` and `C` are Header and Child object respectively.
+
 ```java
-List<StickyItem<String, MenuItem>> items = new ArrayList<>();
-items.add(new StickyItem<>(listOne, headerOne));
-items.add(new StickyItem<>(listTwo, headerTwo));
+List<StickyItem<H, C>> items = new ArrayList<>();
+items.add(new StickyItem<>(List<C>, H));
+items.add(new StickyItem<>(List<C>, H));
 ```
 #### Constructor arguments for `StickyAdapter`
 
- *`List<StickyItem<H, C>>`* is a list of objects to be passed in sticky recycler view. `H` and `C` are Header and Child object
+ *`List<StickyItem<H, C>>`* is a list of objects to be passed in sticky recycler view. `H` and `C` are Header and Child object respectively.
 
  first *`int`* is an id of a header item view layout.
 
