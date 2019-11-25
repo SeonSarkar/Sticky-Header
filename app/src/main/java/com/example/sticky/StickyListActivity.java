@@ -28,15 +28,15 @@ public class StickyListActivity extends AppCompatActivity {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_sticky_list);
 
         listMenuItem = new ArrayList<>();
-        listMenuItem.add(new MenuItem("Child", MenuItem.CHILD_TYPE, false));
-        listMenuItem.add(new MenuItem("Child", MenuItem.CHILD_TYPE, false));
-        listMenuItem.add(new MenuItem("Child", MenuItem.CHILD_TYPE, false));
-        listMenuItem.add(new MenuItem("Child", MenuItem.CHILD_TYPE, false));
-        listMenuItem.add(new MenuItem("Child", MenuItem.CHILD_TYPE, false));
-        listMenuItem.add(new MenuItem("Child", MenuItem.CHILD_TYPE, false));
-        listMenuItem.add(new MenuItem("Child", MenuItem.CHILD_TYPE, false));
-        listMenuItem.add(new MenuItem("Child", MenuItem.CHILD_TYPE, false));
-        listMenuItem.add(new MenuItem("Child", MenuItem.CHILD_TYPE, false));
+        listMenuItem.add(new MenuItem("Child"));
+        listMenuItem.add(new MenuItem("Child"));
+        listMenuItem.add(new MenuItem("Child"));
+        listMenuItem.add(new MenuItem("Child"));
+        listMenuItem.add(new MenuItem("Child"));
+        listMenuItem.add(new MenuItem("Child"));
+        listMenuItem.add(new MenuItem("Child"));
+        listMenuItem.add(new MenuItem("Child"));
+        listMenuItem.add(new MenuItem("Child"));
 
 
         List<StickyItem<String, MenuItem>> items = new ArrayList<>();
@@ -44,7 +44,7 @@ public class StickyListActivity extends AppCompatActivity {
         items.add(new StickyItem<>(listMenuItem, "header 2"));
         items.add(new StickyItem<>(listMenuItem, "header 3"));
 
-        mStickyAdapter = new StickyAdapter<String, MenuItem, RowListHeaderItemBinding, RowListChildItemBinding>(items, R.layout.row_list_header_item, R.layout.row_list_child_item,
+        mStickyAdapter = new StickyAdapter<>(items, R.layout.row_list_header_item, R.layout.row_list_child_item,
                 new StickyRecyclerCallBack<String, MenuItem, RowListHeaderItemBinding, RowListChildItemBinding>() {
                     @Override
                     public void bindHeader(RowListHeaderItemBinding header, String item) {
@@ -60,7 +60,6 @@ public class StickyListActivity extends AppCompatActivity {
         mBinding.rvSticky.setHasFixedSize(true);
         mBinding.rvSticky.addItemDecoration(new ItemDecoration(mBinding.rvSticky, mStickyAdapter));
         mBinding.rvSticky.setAdapter(mStickyAdapter);
-
 
     }
 }

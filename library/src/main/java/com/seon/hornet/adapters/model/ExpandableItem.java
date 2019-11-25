@@ -3,20 +3,19 @@ package com.seon.hornet.adapters.model;
 import java.util.List;
 
 /**
- * Created by Kiran Gyawali on 10/22/2019.
+ * Created by Kiran Gyawali on 25/11/2019.
  */
-
-public class StickyItem<H,C> {
+public class ExpandableItem<G, C> {
 
     private List<C> childList;
-    private H header;
+    private G group;
 
-    public StickyItem() {
+    public ExpandableItem() {
     }
 
-    public StickyItem(List<C> childList, H header) {
+    public ExpandableItem(List<C> childList, G group) {
         this.childList = childList;
-        this.header = header;
+        this.group= group;
     }
 
     public List<C> getChildList() {
@@ -27,11 +26,13 @@ public class StickyItem<H,C> {
         this.childList = childList;
     }
 
-    public H getHeader() {
-        return header;
+    public G getGroup() {
+        return group;
     }
 
-    public void setHeader(H header) {
-        this.header = header;
+    public void setGroup(G group) {
+        this.group= group;
     }
 }
+
+

@@ -4,15 +4,23 @@ package com.seon.hornet.adapters.model;
  * Created by Kiran Gyawali on 10/22/2019.
  */
 
-public class RvItemHeader<H> extends StickyRvItem {
+public class RvItemHeader<H> {
 
     private H header;
     private int headerPosition;
+    private boolean expanded;
 
     public RvItemHeader(H header, int headerPosition) {
-        isHeader = true;
         this.headerPosition = headerPosition;
-        this.header=header;
+        this.header = header;
+    }
+
+    public boolean isExpanded() {
+        return expanded;
+    }
+
+    public void setExpanded(boolean expanded) {
+        this.expanded = expanded;
     }
 
     public int getHeaderPosition() {

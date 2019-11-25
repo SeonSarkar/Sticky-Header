@@ -4,17 +4,25 @@ package com.seon.hornet.adapters.model;
  * Created by Kiran Gyawali on 10/22/2019.
  */
 
-public class RvItemChild<C> extends StickyRvItem {
+public class RvItemChild<C>  {
 
     private C child;
     private int headerPosition;
     private int childPosition;
+    private boolean isVisible;
 
     public RvItemChild(C child, int headerPosition, int childPosition) {
-        isHeader = false;
         this.headerPosition = headerPosition;
         this.childPosition = childPosition;
         this.child = child;
+    }
+
+    public boolean isVisible() {
+        return isVisible;
+    }
+
+    public void setVisible(boolean visible) {
+        isVisible = visible;
     }
 
     public int getChildPosition() {
