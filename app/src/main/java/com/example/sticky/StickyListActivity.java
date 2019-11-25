@@ -27,15 +27,15 @@ public class StickyListActivity extends AppCompatActivity {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_sticky_list);
 
         listMenuItem = new ArrayList<>();
-        listMenuItem.add(new MenuItem("Child", MenuItem.CHILD_TYPE, false));
-        listMenuItem.add(new MenuItem("Child", MenuItem.CHILD_TYPE, false));
-        listMenuItem.add(new MenuItem("Child", MenuItem.CHILD_TYPE, false));
-        listMenuItem.add(new MenuItem("Child", MenuItem.CHILD_TYPE, false));
-        listMenuItem.add(new MenuItem("Child", MenuItem.CHILD_TYPE, false));
-        listMenuItem.add(new MenuItem("Child", MenuItem.CHILD_TYPE, false));
-        listMenuItem.add(new MenuItem("Child", MenuItem.CHILD_TYPE, false));
-        listMenuItem.add(new MenuItem("Child", MenuItem.CHILD_TYPE, false));
-        listMenuItem.add(new MenuItem("Child", MenuItem.CHILD_TYPE, false));
+        listMenuItem.add(new MenuItem("Child"));
+        listMenuItem.add(new MenuItem("Child"));
+        listMenuItem.add(new MenuItem("Child"));
+        listMenuItem.add(new MenuItem("Child"));
+        listMenuItem.add(new MenuItem("Child"));
+        listMenuItem.add(new MenuItem("Child"));
+        listMenuItem.add(new MenuItem("Child"));
+        listMenuItem.add(new MenuItem("Child"));
+        listMenuItem.add(new MenuItem("Child"));
 
 
         List<StickyItem<String, MenuItem>> items = new ArrayList<>();
@@ -67,7 +67,6 @@ public class StickyListActivity extends AppCompatActivity {
         mBinding.rvSticky.setHasFixedSize(true);
         mBinding.rvSticky.addItemDecoration(new ItemDecoration(mBinding.rvSticky, mStickyAdapter));
         mBinding.rvSticky.setAdapter(mStickyAdapter);
-
 
     }
 }
