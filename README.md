@@ -84,46 +84,104 @@ items.add(new StickyItem<>(List<C>, H));
 
 #### creating a new `StickyAdapter`
 ```java
-StickyAdapter mStickyAdapter = new StickyAdapter<>(items, R.layout.row_list_header_item, R.layout.row_list_child_item,
- new StickyRecyclerCallBack<String, MenuItem, RowListHeaderItemBinding, RowListChildItemBinding>() {
- /**
- * @param header view binding of a header
- * @param item object in a header view
- * @param headerPosition position of a header view
- */
-  @Override
-  public void bindHeader(RowListHeaderItemBinding header, String item, int headerPosition) {
-                /*setup your views for header in sticky recycler view here*/
-                header.tvHeaderItem.setText(item);
-            }
+mStickyAdapter = new StickyAdapter<>(items, R.layout.row_list_header_item, R.layout.row_list_child_item,
+                new StickyRecyclerCallBack<String, MenuItem, RowListHeaderItemBinding, RowListChildItemBinding>() {
+                    /**
+                     * @param header view binding of a header
+                     * @param item object in a header view
+                     * @param headerPosition position of a header view
+                     */
+                    @Override
+                    public void bindHeader(RowListHeaderItemBinding header, String item, int headerPosition) {
+                        /*setup your views for header in sticky recycler view here*/
+                         header.tvHeaderItem.setText(item);
 
- /**
- * @param child view binding of child item in a sticky recycler view
- * @param item object in a child view
- * @param headerPosition position of a header of associated child
- * @param childPosition position of a child
- */
-  @Override
-  public void bindChild(RowListChildItemBinding child, MenuItem item, int headerPosition, int childPosition) {
-                /*setup your views for child in sticky recycler view here*/
-                child.tvChildItem.setText(item.getItemName());
-                }
-        });
+                    }
 
+                    /**
+                     * @param child view binding of child item in a sticky recycler view
+                     * @param item object in a child view
+                     * @param headerPosition position of a header of associated child
+                     * @param childPosition position of a child
+                     */
+                    @Override
+                    public void bindChild(RowListChildItemBinding child, MenuItem item, int headerPosition, int childPosition) {
+                       /*setup your views for child in sticky recycler view here*/
+                        child.tvChildItem.setText(item.getItemName());
+                    }
+                });
 ```
 #### set the `StickyAdapter`  to your desired `RecyclerView`
 
 
  ```java
-
 //for sticky feature ::: Important
 myRecyclerView.addItemDecoration(new com.seon.hornet.adapters.itemdecoration.ItemDecoration(mBinding.rvSticky, mStickyAdapter));
 
 myRecyclerView.setAdapter(mStickyAdapter);
 ```
 ## Expandable List RV Adapter Usages
- ### WIP
-  
+#### create a list of ExpandableItem
+
+`G` and `C` are Group and Child object respectively.
+
+```java
+List<ExpandableItem<G, C>> items = new ArrayList<>();
+items.add(new ExpandableItem<>(List<C>, G));
+items.add(new ExpandableItem<>(List<C>, G));
+```  
+#### Constructor arguments for `ExpandableAdapter`
+
+ *`List<ExpandableItem<G, C>>`* is a list of objects to be passed in sticky recycler view. `G` and `C` are Group and Child object respectively.
+
+ first *`int`* is an id of a header item view layout.
+
+ second *`int`* is an id of a child item view layout.
+
+ *`ExpandableRecyclerCallBack`* is a callback for views in Expandable recycler view.
+
+#### creating a new `ExpandableAdapter`
+```java
+ mExpandableRecyclerAdapter = new ExpandableAdapter<>(items, R.layout.row_list_header_item, R.layout.row_list_child_item,
+                new ExpandableRecyclerCallBack<String, MenuItem, RowListHeaderItemBinding, RowListChildItemBinding>() {
+                    /**
+                     * @param header view binding of a header
+                     * @param item object in a header view
+                     * @param groupPosition position of a group
+                     */
+                    @Override
+                    public void bindGroup(RowListHeaderItemBinding header, String item, int groupPosition) {
+                     /*setup your views for group in expandable recycler view here*/
+                     header.tvHeaderItem.setText(item);
+                    }
+
+                    /**
+                     * @param child view binding of child item in a sticky recycler view
+                     * @param item object in a child view
+                     * @param groupPosition position of a group of associated child
+                     * @param childPosition position of a child
+                     */
+                    @Override
+                    public void bindChild(RowListChildItemBinding child, MenuItem item, int groupPosition, int childPosition) {
+                       /*setup your views for child in expandable recycler view here*/
+                       child.tvChildItem.setText(item.getItemName());
+                    }
+
+                    @Override
+                    public void onExpanded(int groupPosition) {
+                        Toast.makeText(ExpandableListActivity.this, "expanded group "+groupPosition, Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onCollapsed(int groupPosition) {
+                        Toast.makeText(ExpandableListActivity.this, "collapsed group "+groupPosition, Toast.LENGTH_SHORT).show();
+                    }
+                });
+```
+#### set the `ExpandableAdapter`  to your desired `RecyclerView`
+ ```java
+myRecyclerView.setAdapter(mExpandableRecyclerAdapter);
+```  
 ## License  
 Copyright (c) 2019 Suman Ghimire  
   
