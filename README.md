@@ -29,7 +29,7 @@ allprojects {
 
  ```java
    dependencies {
-      implementation 'com.github.SeonSarkar:Sticky-Header:1.0.1-alpha'
+      implementation 'com.github.SeonSarkar:Sticky-Header:$latest_version'
       }
   ```
 ### Alternative:
