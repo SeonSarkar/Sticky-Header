@@ -43,7 +43,7 @@ public class StickyListActivity extends AppCompatActivity {
         items.add(new StickyItem<>(listMenuItem, "header 2"));
         items.add(new StickyItem<>(listMenuItem, "header 3"));
 
-        mStickyAdapter = new StickyAdapter<>(items, R.layout.row_list_header_item, R.layout.row_list_child_item,
+        StickyAdapter mStickyAdapter = new StickyAdapter<>(items, R.layout.row_list_header_item, R.layout.row_list_child_item,
                 new StickyRecyclerCallBack<String, MenuItem, RowListHeaderItemBinding, RowListChildItemBinding>() {
                     /**
                      * @param header view binding of a header
