@@ -9,9 +9,9 @@ import androidx.databinding.ViewDataBinding;
 public interface ExpandableRecyclerCallBack<G, C, VBH extends ViewDataBinding,VBC extends ViewDataBinding> {
 
 
-    void bindGroup(VBH header, G item);
+    void bindGroup(VBH header, G item, int groupPosition);
 
-    void bindChild(VBC child, C item);
+    void bindChild(VBC child, C item, int groupPosition, int childPosition);
 
     void onExpanded(int groupPosition);
 

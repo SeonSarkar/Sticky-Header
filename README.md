@@ -89,9 +89,10 @@ StickyAdapter mStickyAdapter = new StickyAdapter<>(items, R.layout.row_list_head
  /**
  * @param header view binding of a header
  * @param item object in a header view
+ * @param headerPosition position of a header view
  */
   @Override
-  public void bindHeader(RowListHeaderItemBinding header, String item) {
+  public void bindHeader(RowListHeaderItemBinding header, String item, int headerPosition) {
                 /*setup your views for header in sticky recycler view here*/
                 header.tvHeaderItem.setText(item);
             }
@@ -99,9 +100,11 @@ StickyAdapter mStickyAdapter = new StickyAdapter<>(items, R.layout.row_list_head
  /**
  * @param child view binding of child item in a sticky recycler view
  * @param item object in a child view
+ * @param headerPosition position of a header of associated child
+ * @param childPosition position of a child
  */
   @Override
-  public void bindChild(RowListChildItemBinding child, MenuItem item) {
+  public void bindChild(RowListChildItemBinding child, MenuItem item, int headerPosition, int childPosition) {
                 /*setup your views for child in sticky recycler view here*/
                 child.tvChildItem.setText(item.getItemName());
                 }
@@ -113,6 +116,7 @@ StickyAdapter mStickyAdapter = new StickyAdapter<>(items, R.layout.row_list_head
 
  ```java
 
+//for sticky feature ::: Important
 myRecyclerView.addItemDecoration(new com.seon.hornet.adapters.itemdecoration.ItemDecoration(mBinding.rvSticky, mStickyAdapter));
 
 myRecyclerView.setAdapter(mStickyAdapter);

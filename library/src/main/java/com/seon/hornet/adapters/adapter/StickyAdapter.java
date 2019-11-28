@@ -34,12 +34,12 @@ public class StickyAdapter<H, C, VBH extends ViewDataBinding, VBC extends ViewDa
     private StickyRecyclerCallBack<H, C, VBH, VBC> recyclerCallBack;
 
     /**
-     * @param listMenuItems
-     * @param headerLayout
-     * @param childLayout
-     * @param callbackInterface
+     * @param listMenuItems     list of objects to be passed in sticky recycler view.
+     * @param headerLayout      id of a header item view layout
+     * @param childLayout       id of a child item view layout
+     * @param callbackInterface callback for views in sticky recycler view.
      */
-    public StickyAdapter(List<StickyItem<H, C>> listMenuItems, @LayoutRes int headerLayout, @LayoutRes int childLayout, StickyRecyclerCallBack<H, C, VBH, VBC> callbackInterface) {
+    public StickyAdapter(List<StickyItem<H, C>> listMenuItems, @LayoutRes int headerLayout, @LayoutRes int childLayout, @NonNull StickyRecyclerCallBack<H, C, VBH, VBC> callbackInterface) {
         this.recyclerCallBack = callbackInterface;
         this.headerLayout = headerLayout;
         this.childLayout = childLayout;
@@ -47,14 +47,6 @@ public class StickyAdapter<H, C, VBH extends ViewDataBinding, VBC extends ViewDa
         processList();
     }
 
-    private void processList() {
-        for (int k = 0; k < originalItems.size(); k++) {
-            processedListItems.add(new RvItemHeader<>(originalItems.get(k).getHeader(),k));
-            for (int i = 0; i < originalItems.get(k).getChildList().size(); i++) {
-                processedListItems.add(new RvItemChild<>(originalItems.get(k).getChildList().get(i), k, i));
-            }
-        }
-    }
 
     @NonNull
     @Override
@@ -64,7 +56,7 @@ public class StickyAdapter<H, C, VBH extends ViewDataBinding, VBC extends ViewDa
             case HEADER_TYPE:
                 return new ViewHolderHeader((LayoutInflater.from(mContext).inflate(headerLayout, parent, false)));
             case CHILD_TYPE:
-               return new ViewHolderChild((LayoutInflater.from(mContext).inflate(childLayout, parent, false)));
+                return new ViewHolderChild((LayoutInflater.from(mContext).inflate(childLayout, parent, false)));
         }
         return new ViewHolderChild((LayoutInflater.from(mContext).inflate(childLayout, parent, false)));
     }
@@ -76,12 +68,12 @@ public class StickyAdapter<H, C, VBH extends ViewDataBinding, VBC extends ViewDa
         if (processedListItems.get(position) instanceof RvItemHeader) {
             RvItemHeader rvItemHeader = (RvItemHeader) (processedListItems.get(position));
             H header = originalItems.get(rvItemHeader.getHeaderPosition()).getHeader();
-            recyclerCallBack.bindHeader(((ViewHolderHeader) holder).headerBinding, header);
+            recyclerCallBack.bindHeader(((ViewHolderHeader) holder).headerBinding, header, rvItemHeader.getHeaderPosition());
         }
         if (processedListItems.get(position) instanceof RvItemChild) {
-            RvItemChild rvItemChild= (RvItemChild) (processedListItems.get(position));
+            RvItemChild rvItemChild = (RvItemChild) (processedListItems.get(position));
             C child = originalItems.get(rvItemChild.getHeaderPosition()).getChildList().get(rvItemChild.getChildPosition());
-            recyclerCallBack.bindChild(((ViewHolderChild) holder).childBinding, child);
+            recyclerCallBack.bindChild(((ViewHolderChild) holder).childBinding, child, rvItemChild.getHeaderPosition(), rvItemChild.getChildPosition());
         }
     }
 
@@ -89,7 +81,7 @@ public class StickyAdapter<H, C, VBH extends ViewDataBinding, VBC extends ViewDa
     public void bindHeaderData(View headerView, int headerPosition) {
         RvItemHeader rvItemHeader = (RvItemHeader) (processedListItems.get(headerPosition));
         H header = originalItems.get(rvItemHeader.getHeaderPosition()).getHeader();
-        recyclerCallBack.bindHeader(DataBindingUtil.bind(headerView), header);
+        recyclerCallBack.bindHeader(DataBindingUtil.bind(headerView), header, rvItemHeader.getHeaderPosition());
     }
 
     @Override
@@ -132,6 +124,35 @@ public class StickyAdapter<H, C, VBH extends ViewDataBinding, VBC extends ViewDa
     @Override
     public boolean isHeader(int itemPosition) {
         return getItemViewType(itemPosition) == HEADER_TYPE;
+    }
+
+    private void processList() {
+        for (int k = 0; k < originalItems.size(); k++) {
+            processedListItems.add(new RvItemHeader<>(originalItems.get(k).getHeader(), k));
+            for (int i = 0; i < originalItems.get(k).getChildList().size(); i++) {
+                processedListItems.add(new RvItemChild<>(originalItems.get(k).getChildList().get(i), k, i));
+            }
+        }
+    }
+
+    public void refreshData(List<StickyItem<H, C>> refreshedItemsList) {
+        this.originalItems = refreshedItemsList;
+        processList();
+        notifyDataSetChanged();
+    }
+
+    public void appendData(List<StickyItem<H, C>> listItems) {
+        this.originalItems.addAll(listItems);
+        processList();
+        notifyDataSetChanged();
+    }
+
+    public H getHeader(int headerPosition) {
+        return originalItems.get(headerPosition).getHeader();
+    }
+
+    public C getChild(int headerPosition, int childPosition) {
+        return originalItems.get(headerPosition).getChildList().get(childPosition);
     }
 
     class ViewHolderHeader extends RecyclerView.ViewHolder {

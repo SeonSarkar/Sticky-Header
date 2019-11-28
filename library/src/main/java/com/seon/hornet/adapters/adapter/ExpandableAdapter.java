@@ -34,21 +34,12 @@ public class ExpandableAdapter<G, C, VBH extends ViewDataBinding, VBC extends Vi
     private ExpandableRecyclerCallBack<G, C, VBH, VBC> recyclerCallBack;
 
     public ExpandableAdapter(List<ExpandableItem<G, C>> listMenuItems, @LayoutRes int groupLayout, @LayoutRes int childLayout,
-                             ExpandableRecyclerCallBack<G, C, VBH, VBC> callbackInterface) {
+                             @NonNull ExpandableRecyclerCallBack<G, C, VBH, VBC> callbackInterface) {
         this.recyclerCallBack = callbackInterface;
         this.groupLayout = groupLayout;
         this.childLayout = childLayout;
         originalItems = listMenuItems;
         processList();
-    }
-
-    private void processList() {
-        for (int k = 0; k < originalItems.size(); k++) {
-            processedListItems.add(new RvItemHeader<>(originalItems.get(k).getGroup(), k));
-            for (int i = 0; i < originalItems.get(k).getChildList().size(); i++) {
-                processedListItems.add(new RvItemChild<>(originalItems.get(k).getChildList().get(i), k, i));
-            }
-        }
     }
 
     @NonNull
@@ -71,7 +62,7 @@ public class ExpandableAdapter<G, C, VBH extends ViewDataBinding, VBC extends Vi
         if (processedListItems.get(position) instanceof RvItemHeader) {
             RvItemHeader rvItemHeader = (RvItemHeader) (processedListItems.get(position));
             G group = originalItems.get(rvItemHeader.getHeaderPosition()).getGroup();
-            recyclerCallBack.bindGroup(((ViewHolderHeader) holder).headerBinding, group);
+            recyclerCallBack.bindGroup(((ViewHolderHeader) holder).headerBinding, group, rvItemHeader.getHeaderPosition());
 
 
             ((ViewHolderHeader) holder).headerBinding.getRoot().setOnClickListener(v -> {
@@ -88,7 +79,7 @@ public class ExpandableAdapter<G, C, VBH extends ViewDataBinding, VBC extends Vi
             RvItemChild rvItemChild = (RvItemChild) (processedListItems.get(position));
             if (rvItemChild.isVisible()) {
                 C child = originalItems.get(rvItemChild.getHeaderPosition()).getChildList().get(rvItemChild.getChildPosition());
-                recyclerCallBack.bindChild(((ViewHolderChild) holder).childBinding, child);
+                recyclerCallBack.bindChild(((ViewHolderChild) holder).childBinding, child,rvItemChild.getHeaderPosition(),rvItemChild.getChildPosition());
             }
         }
     }
@@ -133,6 +124,35 @@ public class ExpandableAdapter<G, C, VBH extends ViewDataBinding, VBC extends Vi
     @Override
     public int getItemCount() {
         return processedListItems.size();
+    }
+
+    private void processList() {
+        for (int k = 0; k < originalItems.size(); k++) {
+            processedListItems.add(new RvItemHeader<>(originalItems.get(k).getGroup(), k));
+            for (int i = 0; i < originalItems.get(k).getChildList().size(); i++) {
+                processedListItems.add(new RvItemChild<>(originalItems.get(k).getChildList().get(i), k, i));
+            }
+        }
+    }
+
+    public void refreshData(List<ExpandableItem<G, C>> refreshedItemsList) {
+        this.originalItems = refreshedItemsList;
+        processList();
+        notifyDataSetChanged();
+    }
+
+    public void appendData(List<ExpandableItem<G, C>> listItems) {
+        this.originalItems.addAll(listItems);
+        processList();
+        notifyDataSetChanged();
+    }
+
+    public G getGroup(int groupPosition) {
+        return originalItems.get(groupPosition).getGroup();
+    }
+
+    public C getChild(int headerPosition, int childPosition) {
+        return originalItems.get(headerPosition).getChildList().get(childPosition);
     }
 
     class ViewHolderHeader extends RecyclerView.ViewHolder {

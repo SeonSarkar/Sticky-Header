@@ -52,13 +52,13 @@ public class ExpandableListActivity extends AppCompatActivity {
         mExpandableRecyclerAdapter = new ExpandableAdapter<>(items, R.layout.row_list_header_item, R.layout.row_list_child_item,
                 new ExpandableRecyclerCallBack<String, MenuItem, RowListHeaderItemBinding, RowListChildItemBinding>() {
                     @Override
-                    public void bindGroup(RowListHeaderItemBinding header, String item) {
+                    public void bindGroup(RowListHeaderItemBinding header, String item, int groupPosition) {
                         header.tvHeaderItem.setText(item);
                     }
 
                     @Override
-                    public void bindChild(RowListChildItemBinding child, MenuItem item) {
-                    child.tvChildItem.setText(item.getItemName());
+                    public void bindChild(RowListChildItemBinding child, MenuItem item, int groupPosition, int childPosition) {
+                        child.tvChildItem.setText(item.getItemName());
                     }
 
                     @Override

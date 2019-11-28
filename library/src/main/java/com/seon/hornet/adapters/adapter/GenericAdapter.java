@@ -30,7 +30,7 @@ public class GenericAdapter<T, VM extends ViewDataBinding> extends RecyclerView.
      * @param bindingInterface a callback for views in a recycler view
      */
 
-    public GenericAdapter(List<T> listItems, @LayoutRes int layoutId, GenericRecyclerCallBack<VM, T> bindingInterface) {
+    public GenericAdapter(List<T> listItems, @LayoutRes int layoutId, @NonNull GenericRecyclerCallBack<VM, T> bindingInterface) {
         this.listItems = listItems;
         this.layoutId = layoutId;
         this.bindingInterface = bindingInterface;

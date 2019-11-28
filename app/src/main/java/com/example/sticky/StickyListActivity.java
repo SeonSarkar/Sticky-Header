@@ -48,24 +48,32 @@ public class StickyListActivity extends AppCompatActivity {
                     /**
                      * @param header view binding of a header
                      * @param item object in a header view
+                     * @param headerPosition position of a header view
                      */
                     @Override
-                    public void bindHeader(RowListHeaderItemBinding header, String item) {
+                    public void bindHeader(RowListHeaderItemBinding header, String item, int headerPosition) {
                         header.tvHeaderItem.setText(item);
-                    }
 
+                    }
                     /**
                      * @param child view binding of child item in a sticky recycler view
                      * @param item object in a child view
+                     * @param headerPosition position of a header of associated child
+                     * @param childPosition position of a child
                      */
+
                     @Override
-                    public void bindChild(RowListChildItemBinding child, MenuItem item) {
+                    public void bindChild(RowListChildItemBinding child, MenuItem item, int headerPosition, int childPosition) {
                         child.tvChildItem.setText(item.getItemName());
+
                     }
                 });
         mBinding.rvSticky.setLayoutManager(new LinearLayoutManager(this));
         mBinding.rvSticky.setHasFixedSize(true);
+
+        //for sticky feature ::: Important
         mBinding.rvSticky.addItemDecoration(new ItemDecoration(mBinding.rvSticky, mStickyAdapter));
+
         mBinding.rvSticky.setAdapter(mStickyAdapter);
 
     }
