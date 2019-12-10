@@ -5,7 +5,6 @@ package com.example.sticky;
  */
 public class MenuItem {
 
-
     private String itemName;
 
     public MenuItem(String itemName) {

@@ -12,6 +12,7 @@
         <activity android:name=".RecyclerViewActivity"></activity>
         <activity android:name=".ExpandableListActivity" />
         <activity android:name=".StickyListActivity" />
+        <activity android:name=".MultipleRowTypeRecyclerActivity"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -26,6 +26,12 @@
          android:layout_width="match_parent"
          android:layout_height="wrap_content"/>
 
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnMultipleRowType"
+            android:text="Multiple Row Type Recycler View"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 
 </layout>

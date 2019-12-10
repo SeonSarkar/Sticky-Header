@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
         mBinding.btnSticky.setOnClickListener(v -> startActivity(new Intent(this, StickyListActivity.class)));
         mBinding.btnNormal.setOnClickListener(v -> startActivity(new Intent(this, RecyclerViewActivity.class)));
         mBinding.btnExpandable.setOnClickListener(v -> startActivity(new Intent(this, ExpandableListActivity.class)));
+        mBinding.btnMultipleRowType.setOnClickListener(view -> startActivity(new Intent(this,MultipleRowTypeRecyclerActivity.class)));
     }
 
 
